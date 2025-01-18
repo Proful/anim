@@ -63,14 +63,7 @@ const App = () => {
       backgroundColor: interpolateColor(
         progress.value,
         inputRange,
-        [
-          "#444",
-          "#444",
-          "#444",
-          "goldenrod",
-          "goldenrod",
-          "goldenrod",
-        ],
+        ["#444", "#444", "#444", "goldenrod", "goldenrod"],
       ),
     }
   })
@@ -85,7 +78,6 @@ const App = () => {
           "goldenrod",
           "goldenrod",
           "goldenrod",
-          "#444",
           "#444",
           "#444",
         ],
