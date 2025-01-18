@@ -1,5 +1,8 @@
-import { View, Text } from "react-native"
+import { View, Text, Dimensions, Image } from "react-native"
 import React from "react"
+import Animated from "react-native-reanimated"
+
+const { width, height } = Dimensions.get("window")
 
 const images = {
   man: "https://images.pexels.com/photos/3147528/pexels-photo-3147528.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
@@ -27,26 +30,23 @@ export default function App() {
         justifyContent: "center",
       }}
     >
-      <Text style={{ fontSize: 42 }}>❤️</Text>
-      <Text
-        style={{
-          fontFamily: "Menlo",
-          marginTop: 10,
-          fontWeight: "800",
-          fontSize: 16,
+      <Animated.FlatList
+        data={data}
+        keyExtractor={(item) => item.key}
+        horizontal
+        showsVerticalScrollIndicator={false}
+        pagingEnabled // snap at each photo
+        renderItem={({ item }) => {
+          return (
+            <View style={{ width, height }}>
+              <Image
+                source={{ uri: item.image }}
+                style={{ flex: 1, resizeMode: "cover" }}
+              />
+            </View>
+          )
         }}
-      >
-        Expo
-      </Text>
-      <Text
-        style={{
-          fontFamily: "Menlo",
-          fontStyle: "italic",
-          fontSize: 12,
-        }}
-      >
-        (expo.io)
-      </Text>
+      />
     </View>
   )
 }
