@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   StyleSheet,
   View,
@@ -13,11 +13,14 @@ import Animated, {
 import { interpolate } from "@shopify/react-native-skia"
 
 const App = () => {
+  const [arrowDirection, setArrowDirection] = useState(true)
   const progress = useSharedValue(0)
 
   const onPress = () => {
-    progress.value = 0
-    progress.value = withTiming(1, { duration: 3000 })
+    progress.value = withTiming(+arrowDirection, {
+      duration: 3000,
+    })
+    setArrowDirection(!arrowDirection)
   }
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -26,6 +29,11 @@ const App = () => {
       [0, 0.5, 1],
       [0, -90, -180], // scale right side
       // [0, 90, 180], // scale left side
+    )
+    const translateX = interpolate(
+      progress.value,
+      [0, 0.5, 1],
+      [0, 50, 0],
     )
     return {
       transform: [
@@ -45,6 +53,9 @@ const App = () => {
             [0, 0.5, 1],
             [1, 8, 1],
           ),
+        },
+        {
+          translateX: `${translateX}%`,
         },
       ],
     }
