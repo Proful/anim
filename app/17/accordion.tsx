@@ -21,7 +21,7 @@ export default function App() {
               style={{ flexGrow: 1 }}
               activeOpacity={0.9}
               onPress={() => {
-                setCurrentIndex(i)
+                setCurrentIndex(i === currentIndex ? -1 : i)
               }}
             >
               <View
