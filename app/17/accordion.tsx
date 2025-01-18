@@ -10,7 +10,15 @@ export default function App() {
           return (
             <TouchableOpacity key={category}>
               <View style={{ backgroundColor: bg }}>
-                <Text style={{ color: color }}>
+                <Text
+                  style={{
+                    color: color,
+                    fontSize: 36,
+                    fontWeight: 900,
+                    textTransform: "uppercase",
+                    letterSpacing: -2,
+                  }}
+                >
                   {category}
                 </Text>
               </View>
