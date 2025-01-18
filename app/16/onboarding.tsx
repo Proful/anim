@@ -6,6 +6,7 @@ import {
 } from "react-native"
 import { AntDesign } from "@expo/vector-icons"
 import Animated, {
+  interpolateColor,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -35,6 +36,7 @@ const App = () => {
       [0, 0.5, 1],
       [0, 50, 0],
     )
+    const inputRange = [0, 0.001, 0.5, 0.501, 1]
     return {
       transform: [
         {
@@ -58,11 +60,43 @@ const App = () => {
           translateX: `${translateX}%`,
         },
       ],
+      backgroundColor: interpolateColor(
+        progress.value,
+        inputRange,
+        [
+          "#444",
+          "#444",
+          "#444",
+          "goldenrod",
+          "goldenrod",
+          "goldenrod",
+        ],
+      ),
+    }
+  })
+
+  const animatedBgStyles = useAnimatedStyle(() => {
+    const inputRange = [0, 0.001, 0.5, 0.501, 1]
+    return {
+      backgroundColor: interpolateColor(
+        progress.value,
+        inputRange,
+        [
+          "goldenrod",
+          "goldenrod",
+          "goldenrod",
+          "#444",
+          "#444",
+          "#444",
+        ],
+      ),
     }
   })
 
   return (
-    <View style={styles.container}>
+    <Animated.View
+      style={[styles.container, animatedBgStyles]}
+    >
       <TouchableOpacity onPress={onPress}>
         <Animated.View
           style={[styles.circle, animatedStyles]}
@@ -74,7 +108,7 @@ const App = () => {
           />
         </Animated.View>
       </TouchableOpacity>
-    </View>
+    </Animated.View>
   )
 }
 
@@ -89,7 +123,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: "rgba(0,0,0,0.7)",
+    backgroundColor: "#444",
     justifyContent: "center",
     alignItems: "center",
   },
