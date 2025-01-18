@@ -7,6 +7,7 @@ import {
 } from "react-native"
 import React from "react"
 import Animated, {
+  SharedValue,
   useSharedValue,
 } from "react-native-reanimated"
 
@@ -22,11 +23,48 @@ const images = {
   help: "https://images.pexels.com/photos/2552130/pexels-photo-2552130.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
 } as any
 
-const data = Object.keys(images).map((i) => ({
+const data: Item[] = Object.keys(images).map((i) => ({
   key: i,
   title: i,
   image: images[i],
 }))
+
+type Item = {
+  key: string
+  title: string
+  image: string
+}
+
+const Tab = ({ item }: { item: Item }) => {
+  return (
+    <View>
+      <Text>{item.title}</Text>
+    </View>
+  )
+}
+
+const Tabs = ({
+  data,
+  scrollX,
+}: {
+  data: Item[]
+  scrollX: SharedValue<number>
+}) => {
+  return (
+    <View>
+      <View>
+        {data.map((item) => {
+          return (
+            <Tab
+              key={item.key}
+              item={item}
+            />
+          )
+        })}
+      </View>
+    </View>
+  )
+}
 
 export default function App() {
   const scrollX = useSharedValue(0)
@@ -67,6 +105,10 @@ export default function App() {
             </View>
           )
         }}
+      />
+      <Tabs
+        data={data}
+        scrollX={scrollX}
       />
     </View>
   )
