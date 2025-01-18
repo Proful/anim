@@ -4,12 +4,27 @@ import data from "./data"
 
 export default function App() {
   return (
-    <View style={{ flex: 1, justifyContent: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+      }}
+    >
       {data.map(
         ({ bg, color, category, subCategories }) => {
           return (
-            <TouchableOpacity key={category}>
-              <View style={{ backgroundColor: bg }}>
+            <TouchableOpacity
+              key={category}
+              // flexGrow: Allow content to grow irrespective of sibling
+              style={{ flexGrow: 1 }}
+            >
+              <View
+                style={{
+                  backgroundColor: bg,
+                  flexGrow: 1,
+                  alignItems: "center",
+                }}
+              >
                 <Text
                   style={{
                     color: color,
