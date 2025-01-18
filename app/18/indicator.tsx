@@ -1,6 +1,14 @@
-import { View, Text, Dimensions, Image } from "react-native"
+import {
+  View,
+  Text,
+  Dimensions,
+  Image,
+  StyleSheet,
+} from "react-native"
 import React from "react"
-import Animated from "react-native-reanimated"
+import Animated, {
+  useSharedValue,
+} from "react-native-reanimated"
 
 const { width, height } = Dimensions.get("window")
 
@@ -21,6 +29,8 @@ const data = Object.keys(images).map((i) => ({
 }))
 
 export default function App() {
+  const scrollX = useSharedValue(0)
+
   return (
     <View
       style={{
@@ -36,12 +46,23 @@ export default function App() {
         horizontal
         showsVerticalScrollIndicator={false}
         pagingEnabled // snap at each photo
+        onScroll={(e) => {
+          scrollX.value = e.nativeEvent.contentOffset.x
+        }}
         renderItem={({ item }) => {
           return (
             <View style={{ width, height }}>
               <Image
                 source={{ uri: item.image }}
                 style={{ flex: 1, resizeMode: "cover" }}
+              />
+              <View
+                style={[
+                  StyleSheet.absoluteFillObject,
+                  {
+                    backgroundColor: "rgba(0,0,0,0.3)",
+                  },
+                ]}
               />
             </View>
           )
