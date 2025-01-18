@@ -17,6 +17,7 @@ export default function App() {
               key={category}
               // flexGrow: Allow content to grow irrespective of sibling
               style={{ flexGrow: 1 }}
+              activeOpacity={0.9}
             >
               <View
                 style={{
@@ -36,6 +37,11 @@ export default function App() {
                 >
                   {category}
                 </Text>
+                {subCategories.map((subCategory) => (
+                  <Text style={{ color }}>
+                    {subCategory}
+                  </Text>
+                ))}
               </View>
             </TouchableOpacity>
           )
