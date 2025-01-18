@@ -21,6 +21,9 @@ const App = () => {
         {
           rotateY: `${interpolate(progress.value, [0, 0.5, 1], [0, 90, 180])}deg`,
         },
+        {
+          scale: interpolate(progress.value, [0, 0.5, 1], [1, 8, 1]),
+        },
       ],
     };
   });
