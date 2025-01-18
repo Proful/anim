@@ -1,37 +1,61 @@
-import React from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import React from "react"
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+} from "react-native"
+import { AntDesign } from "@expo/vector-icons"
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from "react-native-reanimated";
-import { interpolate } from "@shopify/react-native-skia";
+} from "react-native-reanimated"
+import { interpolate } from "@shopify/react-native-skia"
 
 const App = () => {
-  const progress = useSharedValue(0);
+  const progress = useSharedValue(0)
 
   const onPress = () => {
-    progress.value = withTiming(1, { duration: 3000 });
-  };
+    progress.value = 0
+    progress.value = withTiming(1, { duration: 3000 })
+  }
 
   const animatedStyles = useAnimatedStyle(() => {
+    const rotateY = interpolate(
+      progress.value,
+      [0, 0.5, 1],
+      [0, -90, -180], // scale right side
+      // [0, 90, 180], // scale left side
+    )
     return {
       transform: [
         {
-          rotateY: `${interpolate(progress.value, [0, 0.5, 1], [0, 90, 180])}deg`,
+          // it determines how far the "camera" is from the object,
+          // which affects the appearance of depth in the animation
+          // A smaller perspective value making nearby
+          // parts of the object look larger
+          perspective: 200,
         },
         {
-          scale: interpolate(progress.value, [0, 0.5, 1], [1, 8, 1]),
+          rotateY: `${rotateY}deg`,
+        },
+        {
+          scale: interpolate(
+            progress.value,
+            [0, 0.5, 1],
+            [1, 8, 1],
+          ),
         },
       ],
-    };
-  });
+    }
+  })
 
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onPress}>
-        <Animated.View style={[styles.circle, animatedStyles]}>
+        <Animated.View
+          style={[styles.circle, animatedStyles]}
+        >
           <AntDesign
             name="arrowright"
             size={24}
@@ -40,8 +64,8 @@ const App = () => {
         </Animated.View>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -58,6 +82,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-});
+})
 
-export default App;
+export default App
