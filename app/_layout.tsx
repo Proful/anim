@@ -1,5 +1,9 @@
-import { Stack } from "expo-router";
+import { Stack } from "expo-router"
 export const data = [
+  {
+    route: "17/accordion",
+    name: "Accordion",
+  },
   {
     route: "16/onboarding",
     name: "Onboarding",
@@ -88,7 +92,7 @@ export const data = [
     route: "07/rainbow_circles",
     name: "Rainbow Colors",
   },
-];
+]
 
 export default function RootLayout() {
   return (
@@ -99,7 +103,10 @@ export default function RootLayout() {
         },
       }}
     >
-      <Stack.Screen name="index" options={{ title: "Animation" }} />
+      <Stack.Screen
+        name="index"
+        options={{ title: "Animation" }}
+      />
 
       {data &&
         data.map((item, i) => (
@@ -110,5 +117,5 @@ export default function RootLayout() {
           />
         ))}
     </Stack>
-  );
+  )
 }
