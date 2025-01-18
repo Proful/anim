@@ -1,7 +1,12 @@
 import { View, Text, TouchableOpacity } from "react-native"
 import React, { useState } from "react"
 import data from "./data"
-
+import Animated, {
+  FadeIn,
+  FadeOut,
+  Layout,
+  LinearTransition,
+} from "react-native-reanimated"
 export default function App() {
   const [currentIndex, setCurrentIndex] = useState(-1)
 
@@ -42,19 +47,28 @@ export default function App() {
                 >
                   {category}
                 </Text>
-                {i === currentIndex &&
-                  subCategories.map((subCategory) => (
-                    <Text
-                      style={{
-                        color,
-                        fontSize: 20,
-                        lineHeight: 20 * 1.5,
-                        textAlign: "center",
-                      }}
-                    >
-                      {subCategory}
-                    </Text>
-                  ))}
+                <Animated.View
+                  layout={LinearTransition.springify()}
+                >
+                  {i === currentIndex &&
+                    subCategories.map((subCategory) => (
+                      <Animated.View
+                        entering={FadeIn}
+                        exiting={FadeOut}
+                      >
+                        <Text
+                          style={{
+                            color,
+                            fontSize: 20,
+                            lineHeight: 20 * 1.5,
+                            textAlign: "center",
+                          }}
+                        >
+                          {subCategory}
+                        </Text>
+                      </Animated.View>
+                    ))}
+                </Animated.View>
               </View>
             </TouchableOpacity>
           )
