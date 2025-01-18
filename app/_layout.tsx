@@ -1,6 +1,10 @@
 import { Stack } from "expo-router"
 export const data = [
   {
+    route: "18/indicator",
+    name: "Indicator",
+  },
+  {
     route: "17/accordion",
     name: "Accordion",
   },
@@ -11,10 +15,6 @@ export const data = [
   {
     route: "15/carousal",
     name: "Carousal",
-  },
-  {
-    route: "14/animated_slider",
-    name: "Animated Slider",
   },
   {
     route: "13/moti",
